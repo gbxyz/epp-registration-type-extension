@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!-- when the namespace version bumps, update this and it will update
+    everywhere --><!ENTITY VERSION "0.1">
+<!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
+<!ENTITY RFC2119 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC3688 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3688.xml">
+<!ENTITY RFC5730 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5730.xml">
+<!ENTITY RFC5731 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5731.xml">
+<!ENTITY RFC7451 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7451.xml">
+]>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xslt" ?>
+<?rfc strict="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+<?rfc comments="yes" ?>
+<?rfc inline="yes" ?>
+<rfc category="exp" docName="draft-brown-epp-regtype-extension-00" ipr="trust200902">
+
+  <front>
+    <title abbrev="Registration Type Extension">Registration Type Extension for
+    the Extensible Provisioning Protocol (EPP)</title>
+
+    <author fullname="Gavin Brown" initials="G" surname="Brown">
+      <organization>CentralNic Group plc</organization>
+      <address>
+        <postal>
+          <street>35-39 Moorgate</street>
+          <city>London</city>
+          <region>England</region>
+          <code>EC2R 6AR</code>
+          <country>GB</country>
+        </postal>
+        <phone>+44 20 33 88 0600</phone>
+        <email>gavin.brown@centralnic.com</email>
+        <uri>https://www.centralnic.com</uri>
+      </address>
+    </author>
+
+    <date month="April" year="2015"/>
+
+    <area>Applications</area>
+    <workgroup>Internet Engineering Task Force</workgroup>
+    <keyword>EPP, XML</keyword>
+
+    <abstract><t>This document describes an Extensible Provisioning Protocol
+    (EPP) extension mapping for registration types.</t></abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction">
+
+      <t>This document describes a general purpose framework whereby an EPP
+      client can provide an EPP server with a simple token-based registration
+      "type" for domain objects.</t>
+
+      <section title="Conventions Used in This Document">
+
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+        document are to be interpreted as described in 
+        <xref target="RFC2119">RFC 2119</xref>.</t>
+
+        <t>XML is case sensitive. Unless stated otherwise, XML specifications
+        and examples provided in this document MUST be interpreted in the
+        character case presented in order to develop a conforming
+        implementation.</t>
+
+        <t>"regtype" is used as an abbreviation for
+        "urn:ietf:params:xml:ns:regtype-&VERSION;". The XML namespace prefix "regtype"
+        is used, but implementations MUST NOT depend on it and instead employ a
+        proper namespace-aware XML parser and serializer to interpret and output
+        the XML documents.</t>
+
+        <t>(Note to RFC Editor: remove the following paragraph before publication
+	as an RFC.)</t>
+
+        <t>The XML namespace prefix above contains a version number,
+        specifically "&VERSION;". This version number will increment with
+        successive versions of this document, and will reach 1.0 if and when
+        this document is published as an RFC. This permits clients to
+        distinguish which version of the extension a server has implemented.</t>
+
+      </section>
+    </section>
+
+    <section title="Extension Elements">
+      <t>This document defines a single extension element, &lt;regtype:type&gt;.
+      The XML schema (which can be found in the "Formal Syntax" section below)
+      allows the contents of this element to be any valid token. The semantics
+      of this token are not discussed in this document; and are a matter of
+      mutual prior agreement between client and server.</t>
+    </section>
+
+    <section title="EPP Command Mapping">
+
+      <t>A detailed description of the EPP syntax and semantics can be found in
+      <xref target="RFC5730"/>.</t>
+
+      <section title="EPP Query Commands">
+        <t>This extension does not add any elements to the EPP &lt;poll&gt; or
+	&lt;check&gt; commands or responses.</t>
+
+        <section title="EPP &lt;info&gt; Command">
+          <t>This extension defines additional elements for the EPP
+          &lt;info&gt; command.</t>
+
+	  <t>When a server receives an &lt;info&gt; command for which a "type"
+	  attribute has been stored, it MAY (depending on server policy) include
+	  a &lt;regType:infData&gt; element in the &lt;extension&gt; element of
+	  the response. This element MUST include a &lt;regType:type&gt; element
+	  which includes the token that has been stored for the domain name.</t>
+
+          <t>Example &lt;info&gt; response:</t>
+
+          <figure><artwork>
+S: &lt;?xml version="1.0" encoding="utf-8" standalone="no"?&gt;
+S: &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+S:   &lt;response&gt;
+S:     &lt;result code="1000"&gt;
+S:       &lt;msg&gt;Command completed successfully&lt;/msg&gt;
+S:     &lt;/result&gt;
+S:     &lt;resData&gt;
+S:       &lt;domain:infData
+S:         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+S:         &lt;domain:name&gt;example.com&lt;/domain:name&gt;
+S:         &lt;domain:roid&gt;EXAMPLE1-REP&lt;/domain:roid&gt;
+S:         &lt;domain:status s="ok" /&gt;
+S:         &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+S:         &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+S:         &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+S:         &lt;domain:ns&gt;
+S:           &lt;domain:hostObj&gt;ns1.example.com&lt;/domain:hostObj&gt;
+S:           &lt;domain:hostObj&gt;ns1.example.net&lt;/domain:hostObj&gt;
+S:         &lt;/domain:ns&gt;
+S:         &lt;domain:clID&gt;ClientX&lt;/domain:clID&gt;
+S:         &lt;domain:crID&gt;ClientY&lt;/domain:crID&gt;
+S:         &lt;domain:crDate&gt;1999-04-03T22:00:00.0Z&lt;/domain:crDate&gt;
+S:         &lt;domain:upID&gt;ClientX&lt;/domain:upID&gt;
+S:         &lt;domain:upDate&gt;1999-12-03T09:00:00.0Z&lt;/domain:upDate&gt;
+S:         &lt;domain:exDate&gt;2005-04-03T22:00:00.0Z&lt;/domain:exDate&gt;
+S:         &lt;domain:trDate&gt;2000-04-08T09:00:00.0Z&lt;/domain:trDate&gt;
+S:         &lt;domain:authInfo&gt;
+S:           &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+S:         &lt;/domain:authInfo&gt;
+S:       &lt;/domain:infData&gt;
+S:     &lt;/resData&gt;
+S:     &lt;extension&gt;
+S:       &lt;regType:infData
+S:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.1"&gt;
+S:         &lt;regType:type&gt;foobar&lt;/regType:type&gt;
+S:       &lt;/regType:infData&gt;
+S:     &lt;/extension&gt;
+S:     &lt;trID&gt;
+S:       &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+S:       &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
+S:     &lt;/trID&gt;
+S:   &lt;/response&gt;
+S: &lt;/epp&gt;
+</artwork></figure>
+
+        </section>
+
+      </section>
+
+      <section title="EPP Transform Commands">
+        <t>This extension does not add elements to the EPP &lt;delete&gt;,
+	&lt;renew&gt; or &lt;transfer&gt; commands and responses.</t>
+
+        <section title="EPP &lt;create&gt; Command">
+          <t>This extension adds elements to the EPP &lt;create&gt; command.
+          No additional elements are defined for the EPP &lt;create&gt; response.</t>
+
+          <t>When submitting a &lt;create&gt; command to the server, the client
+          MAY include in the &lt;extension&gt; element a &lt;regtype:create&gt;
+          element.</t>
+
+	  <t>This element MUST include a &lt;regType:type&gt; element
+	  which includes the token for the domain name.</t>
+
+          <t>Example &lt;create&gt; command:</t>
+
+          <figure><artwork>
+C: &lt;?xml version="1.0" encoding="utf-8" standalone="no"?&gt;
+C: &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:   &lt;command&gt;
+C:     &lt;create&gt;
+C:       &lt;domain:create
+C:         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:         &lt;domain:name&gt;example.com&lt;/domain:name&gt;
+C:         &lt;domain:period unit="y"&gt;2&lt;/domain:period&gt;
+C:         &lt;domain:ns&gt;
+C:           &lt;domain:hostObj&gt;ns1.example.net&lt;/domain:hostObj&gt;
+C:           &lt;domain:hostObj&gt;ns2.example.net&lt;/domain:hostObj&gt;
+C:         &lt;/domain:ns&gt;
+C:         &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+C:         &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+C:         &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+C:         &lt;domain:authInfo&gt;
+C:           &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+C:         &lt;/domain:authInfo&gt;
+C:       &lt;/domain:create&gt;
+C:     &lt;/create&gt;
+C:     &lt;extension&gt;
+C:       &lt;regType:create
+C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.1"&gt;
+C:         &lt;regType:type&gt;foobar&lt;/regType:type&gt;
+C:       &lt;/regType:create&gt;
+C:     &lt;/extension&gt;
+C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:   &lt;/command&gt;
+C: &lt;/epp&gt;
+</artwork></figure>
+
+        </section>
+
+        <section title="EPP &lt;update&gt; Command">
+          <t>This extension adds elements to the EPP &lt;update&gt; command.
+	  No additional elements are defined for the EPP &lt;update&gt; response.</t>
+
+          <t>When submitting an &lt;update&gt; command to the server, the client
+          MAY include in the &lt;extension&gt; element a &lt;regtype:update&gt;
+          element. This element MUST include a &lt;regType:chg&gt; element
+	  which includes &lt;regType:type&gt; element, which contains the new
+	  token for the domain name.</t>
+
+          <t>Example &lt;update&gt; command:</t>
+
+          <figure><artwork>
+C: &lt;?xml version="1.0" encoding="utf-8" standalone="no"?&gt;
+C: &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:   &lt;command&gt;
+C:     &lt;update&gt;
+C:       &lt;domain:update
+C:         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:         &lt;domain:name&gt;example.com&lt;/domain:name&gt;
+C:       &lt;/domain:update&gt;
+C:     &lt;/update&gt;
+C:     &lt;extension&gt;
+C:       &lt;regType:update
+C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.1"&gt;
+C:         &lt;regType:chg&gt;
+C:           &lt;regType:type&gt;foobar&lt;/regType:type&gt;
+C:         &lt;/regType:chg&gt;
+C:       &lt;/regType:update&gt;
+C:     &lt;/extension&gt;
+C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:   &lt;/command&gt;
+C: &lt;/epp&gt;
+</artwork></figure>
+
+        </section>
+
+      </section>
+
+      <section title="Formal Syntax">
+        <t>An EPP object mapping is specified in XML Schema notation. The formal
+        syntax presented here is a complete schema representation of the object
+        mapping suitable for automated validation of EPP XML instances.</t>
+
+        <t>Copyright (c) 2015 IETF Trust and the persons identified as authors
+        of the code. All rights reserved.</t>
+
+        <t>Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are
+        met:</t>
+
+        <t><list style="symbols">
+          <t>Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.</t>
+
+          <t>Redistributions in binary form must reproduce the above copyright
+          notice, this list of conditions and the following disclaimer in the
+          documentation and/or other materials provided with the
+          distribution.</t>
+
+          <t>Neither the name of Internet Society, IETF or IETF Trust, nor the
+          names of specific contributors, may be used to endorse or promote
+          products derived from this software without specific prior written
+          permission.</t>
+        </list></t>
+
+        <t>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+        "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+        LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+        PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+        OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+        EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+        PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+        PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+        LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+        NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+        SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</t>
+
+<figure><artwork>
+BEGIN
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;schema xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.1"
+  xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+  targetNamespace="urn:ietf:params:xml:ns:regtype-0.1"
+  elementFormDefault="qualified"&gt;
+
+  &lt;import namespace="urn:ietf:params:xml:ns:eppcom-1.0" /&gt;
+
+  &lt;annotation&gt;
+    &lt;documentation&gt;Extensible Provisioning Protocol
+    v1.0 domain name extension schema for
+    registration type.&lt;/documentation&gt;
+  &lt;/annotation&gt;
+
+  &lt;!--
+  Child elements found in EPP commands and responses
+  --&gt;
+  &lt;element name="infData" type="regtype:infDataType" /&gt;
+  &lt;element name="create" type="regtype:createType" /&gt;
+  &lt;element name="update" type="regtype:updateType" /&gt;
+
+  &lt;!--
+    server &lt;info&gt; result
+  --&gt;
+  &lt;complexType name="infDataType"&gt;
+    &lt;sequence&gt;
+      &lt;element name="type" type="eppcom:minTokenType"
+        minOccurs="0" /&gt;
+    &lt;/sequence&gt;
+  &lt;/complexType&gt;
+
+  &lt;!--
+    &lt;create&gt; command
+  --&gt;
+  &lt;complexType name="createType"&gt;
+    &lt;sequence&gt;
+      &lt;element name="type" type="eppcom:minTokenType"
+        minOccurs="0" /&gt;
+    &lt;/sequence&gt;
+  &lt;/complexType&gt;
+
+  &lt;!--
+    &lt;update&gt; command
+  --&gt;
+  &lt;complexType name="updateType"&gt;
+    &lt;sequence&gt;
+      &lt;element name="chg" type="regtype:chgType" /&gt;
+    &lt;/sequence&gt;
+  &lt;/complexType&gt;
+
+  &lt;complexType name="chgType"&gt;
+    &lt;sequence&gt;
+      &lt;element name="type" type="eppcom:minTokenType"
+        minOccurs="0" /&gt;
+    &lt;/sequence&gt;
+  &lt;/complexType&gt;
+&lt;/schema&gt;
+
+END</artwork></figure>
+
+      </section>
+
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+      <t>The mapping extensions described in this document do not provide any
+      security services beyond those described by <xref target="RFC5730">EPP</xref>,
+      the <xref target="RFC5731">EPP domain name mapping</xref>, and protocol
+      layers used by EPP. The security considerations described in these other
+      specifications apply to this specification as well.</t></section>
+
+    <section anchor="IANA" title="IANA Considerations">
+      <section title="XML Namespace">
+        <t>This document uses URNs to describe XML namespaces and XML schemas
+        conforming to a registry mechanism described in <xref target="RFC3688"/>.
+        The folllowing URI assignment is requested of the IANA:</t>
+        <t>URI: urn:ietf:params:xml:ns:regtype-&VERSION;</t>
+        <t>Registrant Contact: See the "Author's Address" section of this
+        document.</t>
+        <t>XML: See the "Formal Syntax" section of this document.</t>
+      </section>
+      <section title="EPP Extension Registry">
+	<t>The EPP extension described in this document should be registered
+	by the IANA in the EPP Extension Registry described in <xref target="RFC7451"/>. The details of the registration are as follows:</t>
+	<t>Name of Extension: EPP Fee Extension</t>
+	<t>Document status: Experimental</t>
+	<t>Reference: (insert reference to RFC version of this document)</t>
+	<t>Registrant Name and Email Address: See the "Author's Address" section
+	of this document.</t>
+	<t>TLDs: any</t>
+	<t>IPR Disclosure: none</t>
+	<t>Status: active</t>
+	<t>Notes: none</t>
+      </section>
+    </section>
+
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      &RFC2119;
+      &RFC3688;
+      &RFC5730;
+      &RFC5731;
+      &RFC7451;
+    </references>
+  </back>
+</rfc>
