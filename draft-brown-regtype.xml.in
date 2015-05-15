@@ -39,7 +39,7 @@
 <?rfc comments="yes" ?>
 <?rfc inline="yes" ?>
 
-<rfc category="exp" docName="draft-brown-epp-regtype-extension-00" ipr="trust200902">
+<rfc category="exp" docName="draft-brown-epp-regtype-00" ipr="trust200902">
 
   <front>
     <title abbrev="Registration Type Extension">Registration Type Extension for
@@ -130,10 +130,10 @@
           <t>This extension defines additional elements for the EPP
           &lt;info&gt; command.</t>
 
-	  <t>When a server receives an &lt;info&gt; command for which a "type"
-	  attribute has been stored, it MAY (depending on server policy) include
-	  a &lt;regType:infData&gt; element in the &lt;extension&gt; element of
-	  the response. This element MUST include a &lt;regType:type&gt; element
+	  <t>When a server receives an &lt;info&gt; command for a domain for which
+	  a "type" attribute has been stored, it MAY (depending on server policy)
+	  include a &lt;regType:infData&gt; element in the &lt;extension&gt; element
+	  of the response. This element MUST include a &lt;regType:type&gt; element
 	  which includes the token that has been stored for the domain name.</t>
 
           <t>Example &lt;info&gt; response:</t>
