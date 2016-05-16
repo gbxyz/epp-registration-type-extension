@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-  xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.1"
+  xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"
   xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
-  targetNamespace="urn:ietf:params:xml:ns:regtype-0.1"
+  targetNamespace="urn:ietf:params:xml:ns:regtype-0.2"
   elementFormDefault="qualified">
 
   <import namespace="urn:ietf:params:xml:ns:eppcom-1.0" />
@@ -16,9 +16,20 @@
   <!--
   Child elements found in EPP commands and responses
   -->
+  <element name="check" type="regtype:checkType" />
   <element name="infData" type="regtype:infDataType" />
   <element name="create" type="regtype:createType" />
   <element name="update" type="regtype:updateType" />
+
+  <!--
+    <check> command
+  -->
+  <complexType name="checkType">
+    <sequence>
+      <element name="type" type="eppcom:minTokenType" />
+    </sequence>
+  </complexType>
+
 
   <!--
     server <info> result

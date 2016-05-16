@@ -146,11 +146,11 @@
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">G. Brown</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">CentralNic Group plc</td></tr>
-<tr><td class="header">Intended status: Experimental</td><td class="header">April 27, 2015</td></tr>
-<tr><td class="header">Expires: October 29, 2015</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Intended status: Experimental</td><td class="header">May 16, 2016</td></tr>
+<tr><td class="header">Expires: November 17, 2016</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />Registration Type Extension for
-    the Extensible Provisioning Protocol (EPP)<br />draft-brown-epp-regtype-extension-00</h1>
+    the Extensible Provisioning Protocol (EPP)<br />draft-brown-epp-regtype-00</h1>
 
 <h3>Abstract</h3>
 
@@ -172,11 +172,11 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on October 29, 2015.</p>
+This Internet-Draft will expire on November 17, 2016.</p>
 
 <h3>Copyright Notice</h3>
 <p>
-Copyright (c) 2015 IETF Trust and the persons identified as the
+Copyright (c) 2016 IETF Trust and the persons identified as the
 document authors.  All rights reserved.</p>
 <p>
 This document is subject to BCP 78 and the IETF Trust's Legal
@@ -202,22 +202,24 @@ EPP Command Mapping<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor5">3.1.</a>&nbsp;
 EPP Query Commands<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor6">3.1.1.</a>&nbsp;
+EPP &lt;check&gt; Command<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor7">3.1.2.</a>&nbsp;
 EPP &lt;info&gt; Command<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor7">3.2.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor8">3.2.</a>&nbsp;
 EPP Transform Commands<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor8">3.2.1.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor9">3.2.1.</a>&nbsp;
 EPP &lt;create&gt; Command<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor9">3.2.2.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor10">3.2.2.</a>&nbsp;
 EPP &lt;update&gt; Command<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor10">3.3.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor11">3.3.</a>&nbsp;
 Formal Syntax<br />
 <a href="#Security">4.</a>&nbsp;
 Security Considerations<br />
 <a href="#IANA">5.</a>&nbsp;
 IANA Considerations<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor11">5.1.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor12">5.1.</a>&nbsp;
 XML Namespace<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor12">5.2.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor13">5.2.</a>&nbsp;
 EPP Extension Registry<br />
 <a href="#rfc.references1">6.</a>&nbsp;
 Normative References<br />
@@ -251,16 +253,16 @@ Conventions Used in This Document</h3>
         implementation.
 </p>
 <p>"regtype" is used as an abbreviation for
-        "urn:ietf:params:xml:ns:regtype-0.1". The XML namespace prefix "regtype"
-        is used, but implementations MUST NOT depend on it and instead employ a
-        proper namespace-aware XML parser and serializer to interpret and output
-        the XML documents.
+        "urn:ietf:params:xml:ns:regtype-0.2". The XML namespace prefix
+        "regtype" is used, but implementations MUST NOT depend on it and instead
+        employ a proper namespace-aware XML parser and serializer to interpret
+        and output the XML documents.
 </p>
-<p>(Note to RFC Editor: remove the following paragraph before publication
-	as an RFC.)
+<p>(Note to RFC Editor: remove the following paragraph before
+        publication as an RFC.)
 </p>
 <p>The XML namespace prefix above contains a version number,
-        specifically "0.1". This version number will increment with
+        specifically "0.2". This version number will increment with
         successive versions of this document, and will reach 1.0 if and when
         this document is published as an RFC. This permits clients to
         distinguish which version of the extension a server has implemented.
@@ -289,22 +291,65 @@ EPP Command Mapping</h3>
 <a name="rfc.section.3.1"></a><h3>3.1.&nbsp;
 EPP Query Commands</h3>
 
-<p>This extension does not add any elements to the EPP &lt;poll&gt; or
-	&lt;check&gt; commands or responses.
+<p>This extension does not add any elements to the EPP &lt;poll&gt;
+        command and response.
 </p>
 <a name="anchor6"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.1.1"></a><h3>3.1.1.&nbsp;
+EPP &lt;check&gt; Command</h3>
+
+<p>This extension defines additional elements for the EPP
+          &lt;check&gt; command.
+</p>
+<p>The &lt;check&gt; command MAY contain an &lt;extension&gt; element
+          which MAY contain a &lt;regtype:check&gt; element. The &lt;regtype:check&gt;
+          element contains a &lt;regtype:type&gt; element which contains a token.
+</p>
+<p>Example &lt;create&gt; command:
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+S: &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+S: &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+S:   &lt;command&gt;
+S:     &lt;check&gt;
+S:       &lt;domain:check
+S:        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+S:         &lt;domain:name&gt;example.xyz&lt;/domain:name&gt;
+S:       &lt;/domain:check&gt;
+S:     &lt;/check&gt;
+S:     &lt;extension&gt;
+S:       &lt;regtype:check
+S:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"&gt;
+S:           &lt;regtype:type&gt;foobar&lt;/regtype:type&gt;
+S:       &lt;/regtype:check&gt;
+S:     &lt;/extension&gt;
+S:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+S:   &lt;/command&gt;
+S: &lt;/epp&gt;</pre></div>
+<p>This extension does not define additional elements for &lt;check&gt;
+          responses. When a server receeives a &lt;check&gt; command containing the
+          above elements, it MUST validate the supplied &lt;regtype:type&gt; token
+          when determining the availability of the domains in the &lt;domain:check&gt;
+          element, according to its own policy. If any subsequent &lt;create&gt;
+          commands for the domains would be rejected because the value of the
+          &lt;regtype:type&gt; element would not be permitted, then the "avail"
+          attribute of the &lt;domain:name&gt; elements MUST BE false. The server
+          MAY include a description of the nature of the policy violation in the
+          &lt;domain:reason&gt; element.
+</p>
+<a name="anchor7"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.1.2"></a><h3>3.1.2.&nbsp;
 EPP &lt;info&gt; Command</h3>
 
 <p>This extension defines additional elements for the EPP
-          &lt;info&gt; command.
+          &lt;info&gt; command and response.
 </p>
-<p>When a server receives an &lt;info&gt; command for which a "type"
-	  attribute has been stored, it MAY (depending on server policy) include
-	  a &lt;regType:infData&gt; element in the &lt;extension&gt; element of
-	  the response. This element MUST include a &lt;regType:type&gt; element
-	  which includes the token that has been stored for the domain name.
+<p>When a server receives an &lt;info&gt; command for a domain for which
+          a "type" attribute has been stored, it MAY (depending on server policy)
+          include a &lt;regType:infData&gt; element in the &lt;extension&gt; element
+          of the response. This element MUST include a &lt;regType:type&gt; element
+          which includes the token that has been stored for the domain name.
 </p>
 <p>Example &lt;info&gt; response:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
@@ -341,7 +386,7 @@ S:       &lt;/domain:infData&gt;
 S:     &lt;/resData&gt;
 S:     &lt;extension&gt;
 S:       &lt;regType:infData
-S:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.1"&gt;
+S:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2"&gt;
 S:         &lt;regType:type&gt;foobar&lt;/regType:type&gt;
 S:       &lt;/regType:infData&gt;
 S:     &lt;/extension&gt;
@@ -352,15 +397,15 @@ S:     &lt;/trID&gt;
 S:   &lt;/response&gt;
 S: &lt;/epp&gt;
 </pre></div>
-<a name="anchor7"></a><br /><hr />
+<a name="anchor8"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.2"></a><h3>3.2.&nbsp;
 EPP Transform Commands</h3>
 
 <p>This extension does not add elements to the EPP &lt;delete&gt;,
-	&lt;renew&gt; or &lt;transfer&gt; commands and responses.
+        &lt;renew&gt; or &lt;transfer&gt; commands and responses.
 </p>
-<a name="anchor8"></a><br /><hr />
+<a name="anchor9"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.2.1"></a><h3>3.2.1.&nbsp;
 EPP &lt;create&gt; Command</h3>
@@ -373,7 +418,7 @@ EPP &lt;create&gt; Command</h3>
           element.
 </p>
 <p>This element MUST include a &lt;regType:type&gt; element
-	  which includes the token for the domain name.
+          which includes the token for the domain name.
 </p>
 <p>Example &lt;create&gt; command:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
@@ -399,7 +444,7 @@ C:       &lt;/domain:create&gt;
 C:     &lt;/create&gt;
 C:     &lt;extension&gt;
 C:       &lt;regType:create
-C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.1"&gt;
+C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2"&gt;
 C:         &lt;regType:type&gt;foobar&lt;/regType:type&gt;
 C:       &lt;/regType:create&gt;
 C:     &lt;/extension&gt;
@@ -407,19 +452,19 @@ C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
 C:   &lt;/command&gt;
 C: &lt;/epp&gt;
 </pre></div>
-<a name="anchor9"></a><br /><hr />
+<a name="anchor10"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.2.2"></a><h3>3.2.2.&nbsp;
 EPP &lt;update&gt; Command</h3>
 
 <p>This extension adds elements to the EPP &lt;update&gt; command.
-	  No additional elements are defined for the EPP &lt;update&gt; response.
+          No additional elements are defined for the EPP &lt;update&gt; response.
 </p>
 <p>When submitting an &lt;update&gt; command to the server, the client
           MAY include in the &lt;extension&gt; element a &lt;regtype:update&gt;
           element. This element MUST include a &lt;regType:chg&gt; element
-	  which includes &lt;regType:type&gt; element, which contains the new
-	  token for the domain name.
+          which includes &lt;regType:type&gt; element, which contains the new
+          token for the domain name.
 </p>
 <p>Example &lt;update&gt; command:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
@@ -434,7 +479,7 @@ C:       &lt;/domain:update&gt;
 C:     &lt;/update&gt;
 C:     &lt;extension&gt;
 C:       &lt;regType:update
-C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.1"&gt;
+C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2"&gt;
 C:         &lt;regType:chg&gt;
 C:           &lt;regType:type&gt;foobar&lt;/regType:type&gt;
 C:         &lt;/regType:chg&gt;
@@ -444,7 +489,7 @@ C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
 C:   &lt;/command&gt;
 C: &lt;/epp&gt;
 </pre></div>
-<a name="anchor10"></a><br /><hr />
+<a name="anchor11"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3"></a><h3>3.3.&nbsp;
 Formal Syntax</h3>
@@ -492,9 +537,9 @@ Formal Syntax</h3>
 BEGIN
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;schema xmlns="http://www.w3.org/2001/XMLSchema"
-  xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.1"
+  xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"
   xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
-  targetNamespace="urn:ietf:params:xml:ns:regtype-0.1"
+  targetNamespace="urn:ietf:params:xml:ns:regtype-0.2"
   elementFormDefault="qualified"&gt;
 
   &lt;import namespace="urn:ietf:params:xml:ns:eppcom-1.0" /&gt;
@@ -508,9 +553,20 @@ BEGIN
   &lt;!--
   Child elements found in EPP commands and responses
   --&gt;
+  &lt;element name="check" type="regtype:checkType" /&gt;
   &lt;element name="infData" type="regtype:infDataType" /&gt;
   &lt;element name="create" type="regtype:createType" /&gt;
   &lt;element name="update" type="regtype:updateType" /&gt;
+
+  &lt;!--
+    &lt;check&gt; command
+  --&gt;
+  &lt;complexType name="checkType"&gt;
+    &lt;sequence&gt;
+      &lt;element name="type" type="eppcom:minTokenType" /&gt;
+    &lt;/sequence&gt;
+  &lt;/complexType&gt;
+
 
   &lt;!--
     server &lt;info&gt; result
@@ -566,7 +622,7 @@ Security Considerations</h3>
 <a name="rfc.section.5"></a><h3>5.&nbsp;
 IANA Considerations</h3>
 
-<a name="anchor11"></a><br /><hr />
+<a name="anchor12"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.5.1"></a><h3>5.1.&nbsp;
 XML Namespace</h3>
@@ -575,20 +631,20 @@ XML Namespace</h3>
         conforming to a registry mechanism described in <a class='info' href='#RFC3688'>[RFC3688]<span> (</span><span class='info'>Mealling, M., &ldquo;The IETF XML Registry,&rdquo; January&nbsp;2004.</span><span>)</span></a>.
         The folllowing URI assignment is requested of the IANA:
 </p>
-<p>URI: urn:ietf:params:xml:ns:regtype-0.1
+<p>URI: urn:ietf:params:xml:ns:regtype-0.2
 </p>
 <p>Registrant Contact: See the "Author's Address" section of this
         document.
 </p>
 <p>XML: See the "Formal Syntax" section of this document.
 </p>
-<a name="anchor12"></a><br /><hr />
+<a name="anchor13"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.5.2"></a><h3>5.2.&nbsp;
 EPP Extension Registry</h3>
 
 <p>The EPP extension described in this document should be registered
-	by the IANA in the EPP Extension Registry described in <a class='info' href='#RFC7451'>[RFC7451]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extension Registry for the Extensible Provisioning Protocol,&rdquo; February&nbsp;2015.</span><span>)</span></a>. The details of the registration are as follows:
+        by the IANA in the EPP Extension Registry described in <a class='info' href='#RFC7451'>[RFC7451]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extension Registry for the Extensible Provisioning Protocol,&rdquo; February&nbsp;2015.</span><span>)</span></a>. The details of the registration are as follows:
 </p>
 <p>Name of Extension: EPP Fee Extension
 </p>
@@ -597,7 +653,7 @@ EPP Extension Registry</h3>
 <p>Reference: (insert reference to RFC version of this document)
 </p>
 <p>Registrant Name and Email Address: See the "Author's Address" section
-	of this document.
+        of this document.
 </p>
 <p>TLDs: any
 </p>
@@ -612,15 +668,15 @@ EPP Extension Registry</h3>
 <h3>6.&nbsp;Normative References</h3>
 <table width="99%" border="0">
 <tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
-<td class="author-text"><a href="mailto:sob@harvard.edu">Bradner, S.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, March&nbsp;1997 (<a href="http://www.rfc-editor.org/rfc/rfc2119.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2119.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2119.xml">XML</a>).</td></tr>
+<td class="author-text">Bradner, S., &ldquo;<a href="http://www.rfc-editor.org/info/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, DOI&nbsp;10.17487/RFC2119, March&nbsp;1997.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC3688">[RFC3688]</a></td>
-<td class="author-text">Mealling, M., &ldquo;<a href="http://tools.ietf.org/html/rfc3688">The IETF XML Registry</a>,&rdquo; BCP&nbsp;81, RFC&nbsp;3688, January&nbsp;2004 (<a href="http://www.rfc-editor.org/rfc/rfc3688.txt">TXT</a>).</td></tr>
+<td class="author-text">Mealling, M., &ldquo;<a href="http://www.rfc-editor.org/info/rfc3688">The IETF XML Registry</a>,&rdquo; BCP&nbsp;81, RFC&nbsp;3688, DOI&nbsp;10.17487/RFC3688, January&nbsp;2004.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5730">[RFC5730]</a></td>
-<td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5730">Extensible Provisioning Protocol (EPP)</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5730, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5730.txt">TXT</a>).</td></tr>
+<td class="author-text">Hollenbeck, S., &ldquo;<a href="http://www.rfc-editor.org/info/rfc5730">Extensible Provisioning Protocol (EPP)</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5730, DOI&nbsp;10.17487/RFC5730, August&nbsp;2009.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5731">[RFC5731]</a></td>
-<td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5731">Extensible Provisioning Protocol (EPP) Domain Name Mapping</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5731, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5731.txt">TXT</a>).</td></tr>
+<td class="author-text">Hollenbeck, S., &ldquo;<a href="http://www.rfc-editor.org/info/rfc5731">Extensible Provisioning Protocol (EPP) Domain Name Mapping</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5731, DOI&nbsp;10.17487/RFC5731, August&nbsp;2009.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC7451">[RFC7451]</a></td>
-<td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc7451">Extension Registry for the Extensible Provisioning Protocol</a>,&rdquo; RFC&nbsp;7451, February&nbsp;2015 (<a href="http://www.rfc-editor.org/rfc/rfc7451.txt">TXT</a>).</td></tr>
+<td class="author-text">Hollenbeck, S., &ldquo;<a href="http://www.rfc-editor.org/info/rfc7451">Extension Registry for the Extensible Provisioning Protocol</a>,&rdquo; RFC&nbsp;7451, DOI&nbsp;10.17487/RFC7451, February&nbsp;2015.</td></tr>
 </table>
 
 <a name="rfc.authors"></a><br /><hr />

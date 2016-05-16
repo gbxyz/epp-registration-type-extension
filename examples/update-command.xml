@@ -9,7 +9,7 @@
     </update>
     <extension>
       <regType:update
-        xmlns:regType="urn:ietf:params:xml:ns:regtype-0.1">
+        xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2">
         <regType:chg>
           <regType:type>foobar</regType:type>
         </regType:chg>

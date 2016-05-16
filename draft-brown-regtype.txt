@@ -3,13 +3,13 @@
 
 Internet Engineering Task Force                                 G. Brown
 Internet-Draft                                      CentralNic Group plc
-Intended status: Experimental                             April 27, 2015
-Expires: October 29, 2015
+Intended status: Experimental                               May 16, 2016
+Expires: November 17, 2016
 
 
   Registration Type Extension for the Extensible Provisioning Protocol
                                  (EPP)
-                  draft-brown-epp-regtype-extension-00
+                       draft-brown-epp-regtype-00
 
 Abstract
 
@@ -31,11 +31,11 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 29, 2015.
+   This Internet-Draft will expire on November 17, 2016.
 
 Copyright Notice
 
-   Copyright (c) 2015 IETF Trust and the persons identified as the
+   Copyright (c) 2016 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -52,9 +52,9 @@ Copyright Notice
 
 
 
-Brown                   Expires October 29, 2015                [Page 1]
+Brown                   Expires November 17, 2016               [Page 1]
 
-Internet-Draft         Registration Type Extension            April 2015
+Internet-Draft         Registration Type Extension              May 2016
 
 
 Table of Contents
@@ -64,17 +64,18 @@ Table of Contents
    2.  Extension Elements . . . . . . . . . . . . . . . . . . . . . .  3
    3.  EPP Command Mapping  . . . . . . . . . . . . . . . . . . . . .  3
      3.1.  EPP Query Commands . . . . . . . . . . . . . . . . . . . .  4
-       3.1.1.  EPP <info> Command . . . . . . . . . . . . . . . . . .  4
-     3.2.  EPP Transform Commands . . . . . . . . . . . . . . . . . .  6
-       3.2.1.  EPP <create> Command . . . . . . . . . . . . . . . . .  6
-       3.2.2.  EPP <update> Command . . . . . . . . . . . . . . . . .  7
-     3.3.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . .  7
-   4.  Security Considerations  . . . . . . . . . . . . . . . . . . .  9
-   5.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 10
-     5.1.  XML Namespace  . . . . . . . . . . . . . . . . . . . . . . 10
-     5.2.  EPP Extension Registry . . . . . . . . . . . . . . . . . . 10
-   6.  Normative References . . . . . . . . . . . . . . . . . . . . . 10
-   Author's Address . . . . . . . . . . . . . . . . . . . . . . . . . 11
+       3.1.1.  EPP <check> Command  . . . . . . . . . . . . . . . . .  4
+       3.1.2.  EPP <info> Command . . . . . . . . . . . . . . . . . .  5
+     3.2.  EPP Transform Commands . . . . . . . . . . . . . . . . . .  7
+       3.2.1.  EPP <create> Command . . . . . . . . . . . . . . . . .  7
+       3.2.2.  EPP <update> Command . . . . . . . . . . . . . . . . .  8
+     3.3.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . .  8
+   4.  Security Considerations  . . . . . . . . . . . . . . . . . . . 11
+   5.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 11
+     5.1.  XML Namespace  . . . . . . . . . . . . . . . . . . . . . . 11
+     5.2.  EPP Extension Registry . . . . . . . . . . . . . . . . . . 11
+   6.  Normative References . . . . . . . . . . . . . . . . . . . . . 12
+   Author's Address . . . . . . . . . . . . . . . . . . . . . . . . . 12
 
 
 
@@ -107,10 +108,9 @@ Table of Contents
 
 
 
-
-Brown                   Expires October 29, 2015                [Page 2]
+Brown                   Expires November 17, 2016               [Page 2]
 
-Internet-Draft         Registration Type Extension            April 2015
+Internet-Draft         Registration Type Extension              May 2016
 
 
 1.  Introduction
@@ -131,7 +131,7 @@ Internet-Draft         Registration Type Extension            April 2015
    implementation.
 
    "regtype" is used as an abbreviation for
-   "urn:ietf:params:xml:ns:regtype-0.1".  The XML namespace prefix
+   "urn:ietf:params:xml:ns:regtype-0.2".  The XML namespace prefix
    "regtype" is used, but implementations MUST NOT depend on it and
    instead employ a proper namespace-aware XML parser and serializer to
    interpret and output the XML documents.
@@ -140,7 +140,7 @@ Internet-Draft         Registration Type Extension            April 2015
    publication as an RFC.)
 
    The XML namespace prefix above contains a version number,
-   specifically "0.1".  This version number will increment with
+   specifically "0.2".  This version number will increment with
    successive versions of this document, and will reach 1.0 if and when
    this document is published as an RFC.  This permits clients to
    distinguish which version of the extension a server has implemented.
@@ -164,26 +164,77 @@ Internet-Draft         Registration Type Extension            April 2015
 
 
 
-Brown                   Expires October 29, 2015                [Page 3]
+Brown                   Expires November 17, 2016               [Page 3]
 
-Internet-Draft         Registration Type Extension            April 2015
+Internet-Draft         Registration Type Extension              May 2016
 
 
 3.1.  EPP Query Commands
 
-   This extension does not add any elements to the EPP <poll> or <check>
-   commands or responses.
+   This extension does not add any elements to the EPP <poll> command
+   and response.
 
-3.1.1.  EPP <info> Command
+3.1.1.  EPP <check> Command
 
-   This extension defines additional elements for the EPP <info>
+   This extension defines additional elements for the EPP <check>
    command.
 
-   When a server receives an <info> command for which a "type" attribute
-   has been stored, it MAY (depending on server policy) include a
-   <regType:infData> element in the <extension> element of the response.
-   This element MUST include a <regType:type> element which includes the
-   token that has been stored for the domain name.
+   The <check> command MAY contain an <extension> element which MAY
+   contain a <regtype:check> element.  The <regtype:check> element
+   contains a <regtype:type> element which contains a token.
+
+   Example <create> command:
+
+   S: <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   S: <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   S:   <command>
+   S:     <check>
+   S:       <domain:check
+   S:        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   S:         <domain:name>example.xyz</domain:name>
+   S:       </domain:check>
+   S:     </check>
+   S:     <extension>
+   S:       <regtype:check
+   S:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2">
+   S:           <regtype:type>foobar</regtype:type>
+   S:       </regtype:check>
+   S:     </extension>
+   S:     <clTRID>ABC-12345</clTRID>
+   S:   </command>
+   S: </epp>
+
+   This extension does not define additional elements for <check>
+   responses.  When a server receeives a <check> command containing the
+   above elements, it MUST validate the supplied <regtype:type> token
+   when determining the availability of the domains in the <domain:
+   check> element, according to its own policy.  If any subsequent
+   <create> commands for the domains would be rejected because the value
+   of the <regtype:type> element would not be permitted, then the
+   "avail" attribute of the <domain:name> elements MUST BE false.  The
+   server MAY include a description of the nature of the policy
+   violation in the <domain:reason> element.
+
+
+
+
+
+
+Brown                   Expires November 17, 2016               [Page 4]
+
+Internet-Draft         Registration Type Extension              May 2016
+
+
+3.1.2.  EPP <info> Command
+
+   This extension defines additional elements for the EPP <info> command
+   and response.
+
+   When a server receives an <info> command for a domain for which a
+   "type" attribute has been stored, it MAY (depending on server policy)
+   include a <regType:infData> element in the <extension> element of the
+   response.  This element MUST include a <regType:type> element which
+   includes the token that has been stored for the domain name.
 
    Example <info> response:
 
@@ -220,9 +271,14 @@ Internet-Draft         Registration Type Extension            April 2015
 
 
 
-Brown                   Expires October 29, 2015                [Page 4]
+
+
+
+
+
+Brown                   Expires November 17, 2016               [Page 5]
 
-Internet-Draft         Registration Type Extension            April 2015
+Internet-Draft         Registration Type Extension              May 2016
 
 
    S: <?xml version="1.0" encoding="utf-8" standalone="no"?>
@@ -258,7 +314,7 @@ Internet-Draft         Registration Type Extension            April 2015
    S:     </resData>
    S:     <extension>
    S:       <regType:infData
-   S:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.1">
+   S:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2">
    S:         <regType:type>foobar</regType:type>
    S:       </regType:infData>
    S:     </extension>
@@ -276,9 +332,9 @@ Internet-Draft         Registration Type Extension            April 2015
 
 
 
-Brown                   Expires October 29, 2015                [Page 5]
+Brown                   Expires November 17, 2016               [Page 6]
 
-Internet-Draft         Registration Type Extension            April 2015
+Internet-Draft         Registration Type Extension              May 2016
 
 
 3.2.  EPP Transform Commands
@@ -321,7 +377,7 @@ Internet-Draft         Registration Type Extension            April 2015
    C:     </create>
    C:     <extension>
    C:       <regType:create
-   C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.1">
+   C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2">
    C:         <regType:type>foobar</regType:type>
    C:       </regType:create>
    C:     </extension>
@@ -332,9 +388,9 @@ Internet-Draft         Registration Type Extension            April 2015
 
 
 
-Brown                   Expires October 29, 2015                [Page 6]
+Brown                   Expires November 17, 2016               [Page 7]
 
-Internet-Draft         Registration Type Extension            April 2015
+Internet-Draft         Registration Type Extension              May 2016
 
 
 3.2.2.  EPP <update> Command
@@ -360,7 +416,7 @@ Internet-Draft         Registration Type Extension            April 2015
    C:     </update>
    C:     <extension>
    C:       <regType:update
-   C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.1">
+   C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2">
    C:         <regType:chg>
    C:           <regType:type>foobar</regType:type>
    C:         </regType:chg>
@@ -388,9 +444,9 @@ Internet-Draft         Registration Type Extension            April 2015
 
 
 
-Brown                   Expires October 29, 2015                [Page 7]
+Brown                   Expires November 17, 2016               [Page 8]
 
-Internet-Draft         Registration Type Extension            April 2015
+Internet-Draft         Registration Type Extension              May 2016
 
 
    o  Redistributions of source code must retain the above copyright
@@ -421,9 +477,9 @@ Internet-Draft         Registration Type Extension            April 2015
    BEGIN
    <?xml version="1.0" encoding="utf-8"?>
    <schema xmlns="http://www.w3.org/2001/XMLSchema"
-     xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.1"
+     xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"
      xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
-     targetNamespace="urn:ietf:params:xml:ns:regtype-0.1"
+     targetNamespace="urn:ietf:params:xml:ns:regtype-0.2"
      elementFormDefault="qualified">
 
      <import namespace="urn:ietf:params:xml:ns:eppcom-1.0" />
@@ -437,16 +493,26 @@ Internet-Draft         Registration Type Extension            April 2015
      <!--
      Child elements found in EPP commands and responses
      -->
+     <element name="check" type="regtype:checkType" />
      <element name="infData" type="regtype:infDataType" />
      <element name="create" type="regtype:createType" />
      <element name="update" type="regtype:updateType" />
 
 
 
-
-Brown                   Expires October 29, 2015                [Page 8]
+Brown                   Expires November 17, 2016               [Page 9]
 
-Internet-Draft         Registration Type Extension            April 2015
+Internet-Draft         Registration Type Extension              May 2016
+
+
+     <!--
+       <check> command
+     -->
+     <complexType name="checkType">
+       <sequence>
+         <element name="type" type="eppcom:minTokenType" />
+       </sequence>
+     </complexType>
 
 
      <!--
@@ -489,6 +555,12 @@ Internet-Draft         Registration Type Extension            April 2015
    END
 
 
+
+Brown                   Expires November 17, 2016              [Page 10]
+
+Internet-Draft         Registration Type Extension              May 2016
+
+
 4.  Security Considerations
 
    The mapping extensions described in this document do not provide any
@@ -496,13 +568,6 @@ Internet-Draft         Registration Type Extension            April 2015
    domain name mapping [RFC5731], and protocol layers used by EPP.  The
    security considerations described in these other specifications apply
    to this specification as well.
-
-
-
-
-Brown                   Expires October 29, 2015                [Page 9]
-
-Internet-Draft         Registration Type Extension            April 2015
 
 
 5.  IANA Considerations
@@ -513,7 +578,7 @@ Internet-Draft         Registration Type Extension            April 2015
    conforming to a registry mechanism described in [RFC3688].  The
    folllowing URI assignment is requested of the IANA:
 
-   URI: urn:ietf:params:xml:ns:regtype-0.1
+   URI: urn:ietf:params:xml:ns:regtype-0.2
 
    Registrant Contact: See the "Author's Address" section of this
    document.
@@ -544,30 +609,37 @@ Internet-Draft         Registration Type Extension            April 2015
    Notes: none
 
 
+
+
+
+Brown                   Expires November 17, 2016              [Page 11]
+
+Internet-Draft         Registration Type Extension              May 2016
+
+
 6.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, March 1997.
+              Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/
+              RFC2119, March 1997,
+              <http://www.rfc-editor.org/info/rfc2119>.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
-              January 2004.
+              DOI 10.17487/RFC3688, January 2004,
+              <http://www.rfc-editor.org/info/rfc3688>.
 
    [RFC5730]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)",
-
-
-
-Brown                   Expires October 29, 2015               [Page 10]
-
-Internet-Draft         Registration Type Extension            April 2015
-
-
-              STD 69, RFC 5730, August 2009.
+              STD 69, RFC 5730, DOI 10.17487/RFC5730, August 2009,
+              <http://www.rfc-editor.org/info/rfc5730>.
 
    [RFC5731]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)
-              Domain Name Mapping", STD 69, RFC 5731, August 2009.
+              Domain Name Mapping", STD 69, RFC 5731, DOI 10.17487/
+              RFC5731, August 2009,
+              <http://www.rfc-editor.org/info/rfc5731>.
 
    [RFC7451]  Hollenbeck, S., "Extension Registry for the Extensible
-              Provisioning Protocol", RFC 7451, February 2015.
+              Provisioning Protocol", RFC 7451, DOI 10.17487/RFC7451,
+              February 2015, <http://www.rfc-editor.org/info/rfc7451>.
 
 
 Author's Address
@@ -596,21 +668,5 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Brown                   Expires October 29, 2015               [Page 11]
+Brown                   Expires November 17, 2016              [Page 12]
 

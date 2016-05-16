@@ -5,7 +5,7 @@
   <!-- when the namespace version bumps, update this and it will update
     everywhere -->
 
-  <!ENTITY VERSION "0.1">
+  <!ENTITY VERSION "0.2">
 
   <!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM
     "http://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
@@ -61,7 +61,7 @@
       </address>
     </author>
 
-    <date month="April" year="2015" />
+    <date month="May" year="2016" />
 
     <area>Applications</area>
     <workgroup>Internet Engineering Task Force</workgroup>
@@ -92,13 +92,13 @@
         implementation.</t>
 
         <t>"regtype" is used as an abbreviation for
-        "urn:ietf:params:xml:ns:regtype-&VERSION;". The XML namespace prefix "regtype"
-        is used, but implementations MUST NOT depend on it and instead employ a
-        proper namespace-aware XML parser and serializer to interpret and output
-        the XML documents.</t>
+        "urn:ietf:params:xml:ns:regtype-&VERSION;". The XML namespace prefix
+        "regtype" is used, but implementations MUST NOT depend on it and instead
+        employ a proper namespace-aware XML parser and serializer to interpret
+        and output the XML documents.</t>
 
-        <t>(Note to RFC Editor: remove the following paragraph before publication
-	as an RFC.)</t>
+        <t>(Note to RFC Editor: remove the following paragraph before
+        publication as an RFC.)</t>
 
         <t>The XML namespace prefix above contains a version number,
         specifically "&VERSION;". This version number will increment with
@@ -123,18 +123,45 @@
       <xref target="RFC5730" />.</t>
 
       <section title="EPP Query Commands">
-        <t>This extension does not add any elements to the EPP &lt;poll&gt; or
-	&lt;check&gt; commands or responses.</t>
+        <t>This extension does not add any elements to the EPP &lt;poll&gt;
+        command and response.</t>
+
+        <section title="EPP &lt;check&gt; Command">
+          <t>This extension defines additional elements for the EPP
+          &lt;check&gt; command.</t>
+
+          <t>The &lt;check&gt; command MAY contain an &lt;extension&gt; element
+          which MAY contain a &lt;regtype:check&gt; element. The &lt;regtype:check&gt;
+          element contains a &lt;regtype:type&gt; element which contains a token.</t>
+
+          <t>Example &lt;create&gt; command:</t>
+
+          <figure><artwork>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" parse="text"
+   href="examples/check-command.txt" /></artwork></figure>
+
+          <t>This extension does not define additional elements for &lt;check&gt;
+          responses. When a server receeives a &lt;check&gt; command containing the
+          above elements, it MUST validate the supplied &lt;regtype:type&gt; token
+          when determining the availability of the domains in the &lt;domain:check&gt;
+          element, according to its own policy. If any subsequent &lt;create&gt;
+          commands for the domains would be rejected because the value of the
+          &lt;regtype:type&gt; element would not be permitted, then the "avail"
+          attribute of the &lt;domain:name&gt; elements MUST BE false. The server
+          MAY include a description of the nature of the policy violation in the
+          &lt;domain:reason&gt; element.</t>
+
+        </section>
 
         <section title="EPP &lt;info&gt; Command">
           <t>This extension defines additional elements for the EPP
-          &lt;info&gt; command.</t>
+          &lt;info&gt; command and response.</t>
 
-	  <t>When a server receives an &lt;info&gt; command for a domain for which
-	  a "type" attribute has been stored, it MAY (depending on server policy)
-	  include a &lt;regType:infData&gt; element in the &lt;extension&gt; element
-	  of the response. This element MUST include a &lt;regType:type&gt; element
-	  which includes the token that has been stored for the domain name.</t>
+          <t>When a server receives an &lt;info&gt; command for a domain for which
+          a "type" attribute has been stored, it MAY (depending on server policy)
+          include a &lt;regType:infData&gt; element in the &lt;extension&gt; element
+          of the response. This element MUST include a &lt;regType:type&gt; element
+          which includes the token that has been stored for the domain name.</t>
 
           <t>Example &lt;info&gt; response:</t>
 
@@ -148,7 +175,7 @@
 
       <section title="EPP Transform Commands">
         <t>This extension does not add elements to the EPP &lt;delete&gt;,
-	&lt;renew&gt; or &lt;transfer&gt; commands and responses.</t>
+        &lt;renew&gt; or &lt;transfer&gt; commands and responses.</t>
 
         <section title="EPP &lt;create&gt; Command">
           <t>This extension adds elements to the EPP &lt;create&gt; command.
@@ -158,8 +185,8 @@
           MAY include in the &lt;extension&gt; element a &lt;regtype:create&gt;
           element.</t>
 
-	  <t>This element MUST include a &lt;regType:type&gt; element
-	  which includes the token for the domain name.</t>
+          <t>This element MUST include a &lt;regType:type&gt; element
+          which includes the token for the domain name.</t>
 
           <t>Example &lt;create&gt; command:</t>
 
@@ -171,13 +198,13 @@
 
         <section title="EPP &lt;update&gt; Command">
           <t>This extension adds elements to the EPP &lt;update&gt; command.
-	  No additional elements are defined for the EPP &lt;update&gt; response.</t>
+          No additional elements are defined for the EPP &lt;update&gt; response.</t>
 
           <t>When submitting an &lt;update&gt; command to the server, the client
           MAY include in the &lt;extension&gt; element a &lt;regtype:update&gt;
           element. This element MUST include a &lt;regType:chg&gt; element
-	  which includes &lt;regType:type&gt; element, which contains the new
-	  token for the domain name.</t>
+          which includes &lt;regType:type&gt; element, which contains the new
+          token for the domain name.</t>
 
           <t>Example &lt;update&gt; command:</t>
 
@@ -256,18 +283,18 @@ END</artwork></figure>
         <t>XML: See the "Formal Syntax" section of this document.</t>
       </section>
       <section title="EPP Extension Registry">
-	<t>The EPP extension described in this document should be registered
-	by the IANA in the EPP Extension Registry described in <xref
-	target="RFC7451"/>. The details of the registration are as follows:</t>
-	<t>Name of Extension: EPP Fee Extension</t>
-	<t>Document status: Experimental</t>
-	<t>Reference: (insert reference to RFC version of this document)</t>
-	<t>Registrant Name and Email Address: See the "Author's Address" section
-	of this document.</t>
-	<t>TLDs: any</t>
-	<t>IPR Disclosure: none</t>
-	<t>Status: active</t>
-	<t>Notes: none</t>
+        <t>The EPP extension described in this document should be registered
+        by the IANA in the EPP Extension Registry described in <xref
+        target="RFC7451"/>. The details of the registration are as follows:</t>
+        <t>Name of Extension: EPP Fee Extension</t>
+        <t>Document status: Experimental</t>
+        <t>Reference: (insert reference to RFC version of this document)</t>
+        <t>Registrant Name and Email Address: See the "Author's Address" section
+        of this document.</t>
+        <t>TLDs: any</t>
+        <t>IPR Disclosure: none</t>
+        <t>Status: active</t>
+        <t>Notes: none</t>
       </section>
     </section>
 
