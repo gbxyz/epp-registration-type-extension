@@ -151,6 +151,7 @@ Internet-Draft         Registration Type Extension              May 2016
    This document defines a single extension element, <regtype:type>.
    The XML schema (which can be found in the "Formal Syntax" section
    below) allows the contents of this element to be any valid token.
+
    The semantics of this token are not discussed in this document; and
    are a matter of mutual prior agreement between client and server.
 
@@ -159,7 +160,6 @@ Internet-Draft         Registration Type Extension              May 2016
 
    A detailed description of the EPP syntax and semantics can be found
    in [RFC5730].
-
 
 
 
@@ -393,6 +393,10 @@ Brown                   Expires November 2, 2016                [Page 7]
 Internet-Draft         Registration Type Extension              May 2016
 
 
+   A server MAY choose to reject the <create> command if it considers
+   the value of the <regtype:create> to be invalid, in which case it
+   should return a 2306 "Parameter value policy" error.
+
 3.2.2.  EPP <update> Command
 
    This extension adds elements to the EPP <update> command.  No
@@ -426,20 +430,16 @@ Internet-Draft         Registration Type Extension              May 2016
    C:   </command>
    C: </epp>
 
+   A server MAY choose to reject the <update> command if it considers
+   the value of the <regtype:update> to be invalid, in which case it
+   should return a 2306 "Parameter value policy" error.
+
 3.3.  Formal Syntax
 
    An EPP object mapping is specified in XML Schema notation.  The
    formal syntax presented here is a complete schema representation of
    the object mapping suitable for automated validation of EPP XML
    instances.
-
-   Copyright (c) 2015 IETF Trust and the persons identified as authors
-   of the code.  All rights reserved.
-
-   Redistribution and use in source and binary forms, with or without
-   modification, are permitted provided that the following conditions
-   are met:
-
 
 
 
@@ -448,6 +448,13 @@ Brown                   Expires November 2, 2016                [Page 8]
 
 Internet-Draft         Registration Type Extension              May 2016
 
+
+   Copyright (c) 2015 IETF Trust and the persons identified as authors
+   of the code.  All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
 
    o  Redistributions of source code must retain the above copyright
       notice, this list of conditions and the following disclaimer.
@@ -490,13 +497,6 @@ Internet-Draft         Registration Type Extension              May 2016
        registration type.</documentation>
      </annotation>
 
-     <!--
-     Child elements found in EPP commands and responses
-     -->
-     <element name="check" type="regtype:checkType" />
-     <element name="infData" type="regtype:infDataType" />
-     <element name="create" type="regtype:createType" />
-     <element name="update" type="regtype:updateType" />
 
 
 
@@ -504,6 +504,14 @@ Brown                   Expires November 2, 2016                [Page 9]
 
 Internet-Draft         Registration Type Extension              May 2016
 
+
+     <!--
+     Child elements found in EPP commands and responses
+     -->
+     <element name="check" type="regtype:checkType" />
+     <element name="infData" type="regtype:infDataType" />
+     <element name="create" type="regtype:createType" />
+     <element name="update" type="regtype:updateType" />
 
      <!--
        <check> command
@@ -545,6 +553,14 @@ Internet-Draft         Registration Type Extension              May 2016
      </complexType>
 
      <complexType name="chgType">
+
+
+
+Brown                   Expires November 2, 2016               [Page 10]
+
+Internet-Draft         Registration Type Extension              May 2016
+
+
        <sequence>
          <element name="type" type="eppcom:minTokenType"
            minOccurs="0" />
@@ -553,12 +569,6 @@ Internet-Draft         Registration Type Extension              May 2016
    </schema>
 
    END
-
-
-
-Brown                   Expires November 2, 2016               [Page 10]
-
-Internet-Draft         Registration Type Extension              May 2016
 
 
 4.  Security Considerations
@@ -600,6 +610,13 @@ Internet-Draft         Registration Type Extension              May 2016
    Registrant Name and Email Address: See the "Author's Address" section
    of this document.
 
+
+
+Brown                   Expires November 2, 2016               [Page 11]
+
+Internet-Draft         Registration Type Extension              May 2016
+
+
    TLDs: any
 
    IPR Disclosure: none
@@ -607,14 +624,6 @@ Internet-Draft         Registration Type Extension              May 2016
    Status: active
 
    Notes: none
-
-
-
-
-
-Brown                   Expires November 2, 2016               [Page 11]
-
-Internet-Draft         Registration Type Extension              May 2016
 
 
 6.  Normative References
@@ -653,15 +662,6 @@ Author's Address
    Phone: +44 20 33 88 0600
    Email: gavin.brown@centralnic.com
    URI:   https://www.centralnic.com
-
-
-
-
-
-
-
-
-
 
 
 

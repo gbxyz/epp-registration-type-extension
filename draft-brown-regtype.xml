@@ -92,9 +92,10 @@
     <section title="Extension Elements">
       <t>This document defines a single extension element, &lt;regtype:type&gt;.
       The XML schema (which can be found in the "Formal Syntax" section below)
-      allows the contents of this element to be any valid token. The semantics
-      of this token are not discussed in this document; and are a matter of
-      mutual prior agreement between client and server.</t>
+      allows the contents of this element to be any valid token.</t>
+
+      <t>The semantics of this token are not discussed in this document; and
+      are a matter of mutual prior agreement between client and server.</t>
     </section>
 
     <section title="EPP Command Mapping">
@@ -260,6 +261,10 @@ C:   &lt;/command&gt;
 C: &lt;/epp&gt;
 </artwork></figure>
 
+          <t>A server MAY choose to reject the &lt;create&gt; command if it
+          considers the value of the &lt;regtype:create&gt; to be invalid, in
+	  which case it should return a 2306 "Parameter value policy" error.</t>
+
         </section>
 
         <section title="EPP &lt;update&gt; Command">
@@ -296,6 +301,10 @@ C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
 C:   &lt;/command&gt;
 C: &lt;/epp&gt;
 </artwork></figure>
+
+          <t>A server MAY choose to reject the &lt;update&gt; command if it
+          considers the value of the &lt;regtype:update&gt; to be invalid, in
+          which case it should return a 2306 "Parameter value policy" error.</t>
 
         </section>
 

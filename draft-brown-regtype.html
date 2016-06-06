@@ -274,9 +274,10 @@ Extension Elements</h3>
 
 <p>This document defines a single extension element, &lt;regtype:type&gt;.
       The XML schema (which can be found in the "Formal Syntax" section below)
-      allows the contents of this element to be any valid token. The semantics
-      of this token are not discussed in this document; and are a matter of
-      mutual prior agreement between client and server.
+      allows the contents of this element to be any valid token.
+</p>
+<p>The semantics of this token are not discussed in this document; and
+      are a matter of mutual prior agreement between client and server.
 </p>
 <a name="anchor4"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -452,6 +453,10 @@ C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
 C:   &lt;/command&gt;
 C: &lt;/epp&gt;
 </pre></div>
+<p>A server MAY choose to reject the &lt;create&gt; command if it
+          considers the value of the &lt;regtype:create&gt; to be invalid, in
+	  which case it should return a 2306 "Parameter value policy" error.
+</p>
 <a name="anchor10"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.2.2"></a><h3>3.2.2.&nbsp;
@@ -489,6 +494,10 @@ C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
 C:   &lt;/command&gt;
 C: &lt;/epp&gt;
 </pre></div>
+<p>A server MAY choose to reject the &lt;update&gt; command if it
+          considers the value of the &lt;regtype:update&gt; to be invalid, in
+          which case it should return a 2306 "Parameter value policy" error.
+</p>
 <a name="anchor11"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3"></a><h3>3.3.&nbsp;
