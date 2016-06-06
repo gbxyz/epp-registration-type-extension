@@ -10,7 +10,7 @@ tests:
 	xmllint --noout --schema test-xsds/epp.xsd examples/update-command.xml
 
 build:
-	perl -pi -e 's/^(.)/S: \1/' < examples/check-command.xml > examples/check-command.txt
+	perl -pi -e 's/^(.)/C: \1/' < examples/check-command.xml > examples/check-command.txt
 	perl -pi -e 's/^(.)/S: \1/' < examples/info-response.xml > examples/info-response.txt
 	perl -pi -e 's/^(.)/C: \1/' < examples/create-command.xml > examples/create-command.txt
 	perl -pi -e 's/^(.)/C: \1/' < examples/update-command.xml > examples/update-command.txt

@@ -185,24 +185,24 @@ Internet-Draft         Registration Type Extension              May 2016
 
    Example <create> command:
 
-   S: <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   S: <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-   S:   <command>
-   S:     <check>
-   S:       <domain:check
-   S:        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-   S:         <domain:name>example.xyz</domain:name>
-   S:       </domain:check>
-   S:     </check>
-   S:     <extension>
-   S:       <regtype:check
-   S:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2">
-   S:           <regtype:type>foobar</regtype:type>
-   S:       </regtype:check>
-   S:     </extension>
-   S:     <clTRID>ABC-12345</clTRID>
-   S:   </command>
-   S: </epp>
+   C: <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C: <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:   <command>
+   C:     <check>
+   C:       <domain:check
+   C:        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:         <domain:name>example.xyz</domain:name>
+   C:       </domain:check>
+   C:     </check>
+   C:     <extension>
+   C:       <regtype:check
+   C:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2">
+   C:           <regtype:type>foobar</regtype:type>
+   C:       </regtype:check>
+   C:     </extension>
+   C:     <clTRID>ABC-12345</clTRID>
+   C:   </command>
+   C: </epp>
 
    This extension does not define additional elements for <check>
    responses.  When a server receeives a <check> command containing the

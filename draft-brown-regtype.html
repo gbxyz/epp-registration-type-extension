@@ -308,24 +308,24 @@ EPP &lt;check&gt; Command</h3>
 </p>
 <p>Example &lt;create&gt; command:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-S: &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-S: &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-S:   &lt;command&gt;
-S:     &lt;check&gt;
-S:       &lt;domain:check
-S:        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-S:         &lt;domain:name&gt;example.xyz&lt;/domain:name&gt;
-S:       &lt;/domain:check&gt;
-S:     &lt;/check&gt;
-S:     &lt;extension&gt;
-S:       &lt;regtype:check
-S:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"&gt;
-S:           &lt;regtype:type&gt;foobar&lt;/regtype:type&gt;
-S:       &lt;/regtype:check&gt;
-S:     &lt;/extension&gt;
-S:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-S:   &lt;/command&gt;
-S: &lt;/epp&gt;</pre></div>
+C: &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C: &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:   &lt;command&gt;
+C:     &lt;check&gt;
+C:       &lt;domain:check
+C:        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:         &lt;domain:name&gt;example.xyz&lt;/domain:name&gt;
+C:       &lt;/domain:check&gt;
+C:     &lt;/check&gt;
+C:     &lt;extension&gt;
+C:       &lt;regtype:check
+C:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"&gt;
+C:           &lt;regtype:type&gt;foobar&lt;/regtype:type&gt;
+C:       &lt;/regtype:check&gt;
+C:     &lt;/extension&gt;
+C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:   &lt;/command&gt;
+C: &lt;/epp&gt;</pre></div>
 <p>This extension does not define additional elements for &lt;check&gt;
           responses. When a server receeives a &lt;check&gt; command containing the
           above elements, it MUST validate the supplied &lt;regtype:type&gt; token
