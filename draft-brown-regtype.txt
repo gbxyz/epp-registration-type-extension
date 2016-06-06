@@ -183,7 +183,7 @@ Internet-Draft         Registration Type Extension              May 2016
    contain a <regtype:check> element.  The <regtype:check> element
    contains a <regtype:type> element which contains a token.
 
-   Example <create> command:
+   Example <check> command:
 
    C: <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    C: <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">

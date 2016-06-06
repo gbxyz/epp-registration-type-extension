@@ -114,7 +114,7 @@
           which MAY contain a &lt;regtype:check&gt; element. The &lt;regtype:check&gt;
           element contains a &lt;regtype:type&gt; element which contains a token.</t>
 
-          <t>Example &lt;create&gt; command:</t>
+          <t>Example &lt;check&gt; command:</t>
 
           <figure><artwork>
 C: &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;

@@ -134,7 +134,7 @@
           which MAY contain a &lt;regtype:check&gt; element. The &lt;regtype:check&gt;
           element contains a &lt;regtype:type&gt; element which contains a token.</t>
 
-          <t>Example &lt;create&gt; command:</t>
+          <t>Example &lt;check&gt; command:</t>
 
           <figure><artwork>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" parse="text"
