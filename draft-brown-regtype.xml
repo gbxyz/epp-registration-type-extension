@@ -155,8 +155,8 @@ S: &lt;/epp&gt;</artwork></figure>
 
           <t>When a server receives an &lt;info&gt; command for a domain for which
           a "type" attribute has been stored, it MAY (depending on server policy)
-          include a &lt;regType:infData&gt; element in the &lt;extension&gt; element
-          of the response. This element MUST include a &lt;regType:type&gt; element
+          include a &lt;regtype:infData&gt; element in the &lt;extension&gt; element
+          of the response. This element MUST include a &lt;regtype:type&gt; element
           which includes the token that has been stored for the domain name.</t>
 
           <t>Example &lt;info&gt; response:</t>
@@ -194,10 +194,10 @@ S:         &lt;/domain:authInfo&gt;
 S:       &lt;/domain:infData&gt;
 S:     &lt;/resData&gt;
 S:     &lt;extension&gt;
-S:       &lt;regType:infData
-S:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2"&gt;
-S:         &lt;regType:type&gt;foobar&lt;/regType:type&gt;
-S:       &lt;/regType:infData&gt;
+S:       &lt;regtype:infData
+S:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"&gt;
+S:         &lt;regtype:type&gt;foobar&lt;/regtype:type&gt;
+S:       &lt;/regtype:infData&gt;
 S:     &lt;/extension&gt;
 S:     &lt;trID&gt;
 S:       &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
@@ -223,7 +223,7 @@ S: &lt;/epp&gt;
           MAY include in the &lt;extension&gt; element a &lt;regtype:create&gt;
           element.</t>
 
-          <t>This element MUST include a &lt;regType:type&gt; element
+          <t>This element MUST include a &lt;regtype:type&gt; element
           which includes the token for the domain name.</t>
 
           <t>Example &lt;create&gt; command:</t>
@@ -250,10 +250,10 @@ C:         &lt;/domain:authInfo&gt;
 C:       &lt;/domain:create&gt;
 C:     &lt;/create&gt;
 C:     &lt;extension&gt;
-C:       &lt;regType:create
-C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2"&gt;
-C:         &lt;regType:type&gt;foobar&lt;/regType:type&gt;
-C:       &lt;/regType:create&gt;
+C:       &lt;regtype:create
+C:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"&gt;
+C:         &lt;regtype:type&gt;foobar&lt;/regtype:type&gt;
+C:       &lt;/regtype:create&gt;
 C:     &lt;/extension&gt;
 C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
 C:   &lt;/command&gt;
@@ -268,8 +268,8 @@ C: &lt;/epp&gt;
 
           <t>When submitting an &lt;update&gt; command to the server, the client
           MAY include in the &lt;extension&gt; element a &lt;regtype:update&gt;
-          element. This element MUST include a &lt;regType:chg&gt; element
-          which includes &lt;regType:type&gt; element, which contains the new
+          element. This element MUST include a &lt;regtype:chg&gt; element
+          which includes &lt;regtype:type&gt; element, which contains the new
           token for the domain name.</t>
 
           <t>Example &lt;update&gt; command:</t>
@@ -285,12 +285,12 @@ C:         &lt;domain:name&gt;example.com&lt;/domain:name&gt;
 C:       &lt;/domain:update&gt;
 C:     &lt;/update&gt;
 C:     &lt;extension&gt;
-C:       &lt;regType:update
-C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2"&gt;
-C:         &lt;regType:chg&gt;
-C:           &lt;regType:type&gt;foobar&lt;/regType:type&gt;
-C:         &lt;/regType:chg&gt;
-C:       &lt;/regType:update&gt;
+C:       &lt;regtype:update
+C:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"&gt;
+C:         &lt;regtype:chg&gt;
+C:           &lt;regtype:type&gt;foobar&lt;/regtype:type&gt;
+C:         &lt;/regtype:chg&gt;
+C:       &lt;/regtype:update&gt;
 C:     &lt;/extension&gt;
 C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
 C:   &lt;/command&gt;

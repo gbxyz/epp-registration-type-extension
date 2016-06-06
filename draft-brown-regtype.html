@@ -146,8 +146,8 @@
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">G. Brown</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">CentralNic Group plc</td></tr>
-<tr><td class="header">Intended status: Experimental</td><td class="header">May 16, 2016</td></tr>
-<tr><td class="header">Expires: November 17, 2016</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Intended status: Experimental</td><td class="header">May 2016</td></tr>
+<tr><td class="header">Expires: November 2, 2016</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />Registration Type Extension for
     the Extensible Provisioning Protocol (EPP)<br />draft-brown-epp-regtype-00</h1>
@@ -172,7 +172,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on November 17, 2016.</p>
+This Internet-Draft will expire on November 2, 2016.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -347,8 +347,8 @@ EPP &lt;info&gt; Command</h3>
 </p>
 <p>When a server receives an &lt;info&gt; command for a domain for which
           a "type" attribute has been stored, it MAY (depending on server policy)
-          include a &lt;regType:infData&gt; element in the &lt;extension&gt; element
-          of the response. This element MUST include a &lt;regType:type&gt; element
+          include a &lt;regtype:infData&gt; element in the &lt;extension&gt; element
+          of the response. This element MUST include a &lt;regtype:type&gt; element
           which includes the token that has been stored for the domain name.
 </p>
 <p>Example &lt;info&gt; response:
@@ -385,10 +385,10 @@ S:         &lt;/domain:authInfo&gt;
 S:       &lt;/domain:infData&gt;
 S:     &lt;/resData&gt;
 S:     &lt;extension&gt;
-S:       &lt;regType:infData
-S:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2"&gt;
-S:         &lt;regType:type&gt;foobar&lt;/regType:type&gt;
-S:       &lt;/regType:infData&gt;
+S:       &lt;regtype:infData
+S:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"&gt;
+S:         &lt;regtype:type&gt;foobar&lt;/regtype:type&gt;
+S:       &lt;/regtype:infData&gt;
 S:     &lt;/extension&gt;
 S:     &lt;trID&gt;
 S:       &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
@@ -417,7 +417,7 @@ EPP &lt;create&gt; Command</h3>
           MAY include in the &lt;extension&gt; element a &lt;regtype:create&gt;
           element.
 </p>
-<p>This element MUST include a &lt;regType:type&gt; element
+<p>This element MUST include a &lt;regtype:type&gt; element
           which includes the token for the domain name.
 </p>
 <p>Example &lt;create&gt; command:
@@ -443,10 +443,10 @@ C:         &lt;/domain:authInfo&gt;
 C:       &lt;/domain:create&gt;
 C:     &lt;/create&gt;
 C:     &lt;extension&gt;
-C:       &lt;regType:create
-C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2"&gt;
-C:         &lt;regType:type&gt;foobar&lt;/regType:type&gt;
-C:       &lt;/regType:create&gt;
+C:       &lt;regtype:create
+C:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"&gt;
+C:         &lt;regtype:type&gt;foobar&lt;/regtype:type&gt;
+C:       &lt;/regtype:create&gt;
 C:     &lt;/extension&gt;
 C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
 C:   &lt;/command&gt;
@@ -462,8 +462,8 @@ EPP &lt;update&gt; Command</h3>
 </p>
 <p>When submitting an &lt;update&gt; command to the server, the client
           MAY include in the &lt;extension&gt; element a &lt;regtype:update&gt;
-          element. This element MUST include a &lt;regType:chg&gt; element
-          which includes &lt;regType:type&gt; element, which contains the new
+          element. This element MUST include a &lt;regtype:chg&gt; element
+          which includes &lt;regtype:type&gt; element, which contains the new
           token for the domain name.
 </p>
 <p>Example &lt;update&gt; command:
@@ -478,12 +478,12 @@ C:         &lt;domain:name&gt;example.com&lt;/domain:name&gt;
 C:       &lt;/domain:update&gt;
 C:     &lt;/update&gt;
 C:     &lt;extension&gt;
-C:       &lt;regType:update
-C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2"&gt;
-C:         &lt;regType:chg&gt;
-C:           &lt;regType:type&gt;foobar&lt;/regType:type&gt;
-C:         &lt;/regType:chg&gt;
-C:       &lt;/regType:update&gt;
+C:       &lt;regtype:update
+C:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2"&gt;
+C:         &lt;regtype:chg&gt;
+C:           &lt;regtype:type&gt;foobar&lt;/regtype:type&gt;
+C:         &lt;/regtype:chg&gt;
+C:       &lt;/regtype:update&gt;
 C:     &lt;/extension&gt;
 C:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
 C:   &lt;/command&gt;

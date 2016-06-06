@@ -3,8 +3,8 @@
 
 Internet Engineering Task Force                                 G. Brown
 Internet-Draft                                      CentralNic Group plc
-Intended status: Experimental                               May 16, 2016
-Expires: November 17, 2016
+Intended status: Experimental                                   May 2016
+Expires: November 2, 2016
 
 
   Registration Type Extension for the Extensible Provisioning Protocol
@@ -31,7 +31,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 17, 2016.
+   This Internet-Draft will expire on November 2, 2016.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Brown                   Expires November 17, 2016               [Page 1]
+Brown                   Expires November 2, 2016                [Page 1]
 
 Internet-Draft         Registration Type Extension              May 2016
 
@@ -108,7 +108,7 @@ Table of Contents
 
 
 
-Brown                   Expires November 17, 2016               [Page 2]
+Brown                   Expires November 2, 2016                [Page 2]
 
 Internet-Draft         Registration Type Extension              May 2016
 
@@ -164,7 +164,7 @@ Internet-Draft         Registration Type Extension              May 2016
 
 
 
-Brown                   Expires November 17, 2016               [Page 3]
+Brown                   Expires November 2, 2016                [Page 3]
 
 Internet-Draft         Registration Type Extension              May 2016
 
@@ -220,7 +220,7 @@ Internet-Draft         Registration Type Extension              May 2016
 
 
 
-Brown                   Expires November 17, 2016               [Page 4]
+Brown                   Expires November 2, 2016                [Page 4]
 
 Internet-Draft         Registration Type Extension              May 2016
 
@@ -232,8 +232,8 @@ Internet-Draft         Registration Type Extension              May 2016
 
    When a server receives an <info> command for a domain for which a
    "type" attribute has been stored, it MAY (depending on server policy)
-   include a <regType:infData> element in the <extension> element of the
-   response.  This element MUST include a <regType:type> element which
+   include a <regtype:infData> element in the <extension> element of the
+   response.  This element MUST include a <regtype:type> element which
    includes the token that has been stored for the domain name.
 
    Example <info> response:
@@ -276,7 +276,7 @@ Internet-Draft         Registration Type Extension              May 2016
 
 
 
-Brown                   Expires November 17, 2016               [Page 5]
+Brown                   Expires November 2, 2016                [Page 5]
 
 Internet-Draft         Registration Type Extension              May 2016
 
@@ -313,10 +313,10 @@ Internet-Draft         Registration Type Extension              May 2016
    S:       </domain:infData>
    S:     </resData>
    S:     <extension>
-   S:       <regType:infData
-   S:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2">
-   S:         <regType:type>foobar</regType:type>
-   S:       </regType:infData>
+   S:       <regtype:infData
+   S:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2">
+   S:         <regtype:type>foobar</regtype:type>
+   S:       </regtype:infData>
    S:     </extension>
    S:     <trID>
    S:       <clTRID>ABC-12345</clTRID>
@@ -332,7 +332,7 @@ Internet-Draft         Registration Type Extension              May 2016
 
 
 
-Brown                   Expires November 17, 2016               [Page 6]
+Brown                   Expires November 2, 2016                [Page 6]
 
 Internet-Draft         Registration Type Extension              May 2016
 
@@ -350,7 +350,7 @@ Internet-Draft         Registration Type Extension              May 2016
    When submitting a <create> command to the server, the client MAY
    include in the <extension> element a <regtype:create> element.
 
-   This element MUST include a <regType:type> element which includes the
+   This element MUST include a <regtype:type> element which includes the
    token for the domain name.
 
    Example <create> command:
@@ -376,10 +376,10 @@ Internet-Draft         Registration Type Extension              May 2016
    C:       </domain:create>
    C:     </create>
    C:     <extension>
-   C:       <regType:create
-   C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2">
-   C:         <regType:type>foobar</regType:type>
-   C:       </regType:create>
+   C:       <regtype:create
+   C:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2">
+   C:         <regtype:type>foobar</regtype:type>
+   C:       </regtype:create>
    C:     </extension>
    C:     <clTRID>ABC-12345</clTRID>
    C:   </command>
@@ -388,7 +388,7 @@ Internet-Draft         Registration Type Extension              May 2016
 
 
 
-Brown                   Expires November 17, 2016               [Page 7]
+Brown                   Expires November 2, 2016                [Page 7]
 
 Internet-Draft         Registration Type Extension              May 2016
 
@@ -400,7 +400,7 @@ Internet-Draft         Registration Type Extension              May 2016
 
    When submitting an <update> command to the server, the client MAY
    include in the <extension> element a <regtype:update> element.  This
-   element MUST include a <regType:chg> element which includes <regType:
+   element MUST include a <regtype:chg> element which includes <regtype:
    type> element, which contains the new token for the domain name.
 
    Example <update> command:
@@ -415,12 +415,12 @@ Internet-Draft         Registration Type Extension              May 2016
    C:       </domain:update>
    C:     </update>
    C:     <extension>
-   C:       <regType:update
-   C:         xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2">
-   C:         <regType:chg>
-   C:           <regType:type>foobar</regType:type>
-   C:         </regType:chg>
-   C:       </regType:update>
+   C:       <regtype:update
+   C:         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2">
+   C:         <regtype:chg>
+   C:           <regtype:type>foobar</regtype:type>
+   C:         </regtype:chg>
+   C:       </regtype:update>
    C:     </extension>
    C:     <clTRID>ABC-12345</clTRID>
    C:   </command>
@@ -444,7 +444,7 @@ Internet-Draft         Registration Type Extension              May 2016
 
 
 
-Brown                   Expires November 17, 2016               [Page 8]
+Brown                   Expires November 2, 2016                [Page 8]
 
 Internet-Draft         Registration Type Extension              May 2016
 
@@ -500,7 +500,7 @@ Internet-Draft         Registration Type Extension              May 2016
 
 
 
-Brown                   Expires November 17, 2016               [Page 9]
+Brown                   Expires November 2, 2016                [Page 9]
 
 Internet-Draft         Registration Type Extension              May 2016
 
@@ -556,7 +556,7 @@ Internet-Draft         Registration Type Extension              May 2016
 
 
 
-Brown                   Expires November 17, 2016              [Page 10]
+Brown                   Expires November 2, 2016               [Page 10]
 
 Internet-Draft         Registration Type Extension              May 2016
 
@@ -612,7 +612,7 @@ Internet-Draft         Registration Type Extension              May 2016
 
 
 
-Brown                   Expires November 17, 2016              [Page 11]
+Brown                   Expires November 2, 2016               [Page 11]
 
 Internet-Draft         Registration Type Extension              May 2016
 
@@ -668,5 +668,5 @@ Author's Address
 
 
 
-Brown                   Expires November 17, 2016              [Page 12]
+Brown                   Expires November 2, 2016               [Page 12]
 
