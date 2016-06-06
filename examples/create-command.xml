@@ -19,10 +19,10 @@
       </domain:create>
     </create>
     <extension>
-      <regType:create
-        xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2">
-        <regType:type>foobar</regType:type>
-      </regType:create>
+      <regtype:create
+        xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2">
+        <regtype:type>foobar</regType:type>
+      </regtype:create>
     </extension>
     <clTRID>ABC-12345</clTRID>
   </command>

@@ -30,10 +30,10 @@
       </domain:infData>
     </resData>
     <extension>
-      <regType:infData
-        xmlns:regType="urn:ietf:params:xml:ns:regtype-0.2">
-        <regType:type>foobar</regType:type>
-      </regType:infData>
+      <regtype:infData
+        xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2">
+        <regtype:type>foobar</regType:type>
+      </regtype:infData>
     </extension>
     <trID>
       <clTRID>ABC-12345</clTRID>
