@@ -32,7 +32,7 @@
     <extension>
       <regtype:infData
         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2">
-        <regtype:type>foobar</regType:type>
+        <regtype:type>foobar</regtype:type>
       </regtype:infData>
     </extension>
     <trID>

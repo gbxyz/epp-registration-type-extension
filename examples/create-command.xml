@@ -21,7 +21,7 @@
     <extension>
       <regtype:create
         xmlns:regtype="urn:ietf:params:xml:ns:regtype-0.2">
-        <regtype:type>foobar</regType:type>
+        <regtype:type>foobar</regtype:type>
       </regtype:create>
     </extension>
     <clTRID>ABC-12345</clTRID>
